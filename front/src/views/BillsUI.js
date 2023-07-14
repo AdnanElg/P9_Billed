@@ -1,15 +1,18 @@
 import VerticalLayout from './VerticalLayout.js'
 import ErrorPage from "./ErrorPage.js"
 import LoadingPage from "./LoadingPage.js"
-
 import Actions from './Actions.js'
+
+//? Ajouts de formatDate
+import { formatDate } from "../app/format.js"
 
 const row = (bill) => {
   return (`
     <tr>
       <td>${bill.type}</td>
       <td>${bill.name}</td>
-      <td>${bill.date}</td>
+      <td>${formatDate(bill.date)}</td>
+      <td style="display: none">${bill.date}</td>
       <td>${bill.amount} €</td>
       <td>${bill.status}</td>
       <td>
@@ -19,9 +22,14 @@ const row = (bill) => {
     `)
   }
 
-const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
-}
+  //? Mise a jour des dates de facons croissante du plus grans aux plus petits
+  const rows = (data) => {
+    console.log(data)
+    return (data && data.length) ? data
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .map(bill => row(bill)).join("") : ""
+    }
+  
 
 export default ({ data: bills, loading, error }) => {
   

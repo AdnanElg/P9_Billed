@@ -61,3 +61,8 @@ textarea:focus, input:focus, select:focus {
 *[placeholder] {
   color: #0E5AE5 !important;
 }
+
+/* ? Ajout d'un Id errorFile pour la gestion de l'affichage de l'erreur */
+#errorFile{
+  display: none;
+}

@@ -28,12 +28,19 @@ describe("Given I am connected as an employee", () => {
       //to-do write expect expression
 
     })
+
     test("Then bills should be ordered from earliest to latest", () => {
-      document.body.innerHTML = BillsUI({ data: bills })
-      const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML)
-      const antiChrono = (a, b) => ((a < b) ? 1 : -1)
-      const datesSorted = [...dates].sort(antiChrono)
-      expect(dates).toEqual(datesSorted)
-    })
+      //? Définition du contenu du corps du document avec les données des factures
+      document.body.innerHTML = BillsUI({ data: bills }); 
+      //? Récupération de toutes les dates correspondantes au format spécifié et extraction du contenu HTML
+      const dates = screen
+        .getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map((a) => a.innerHTML); 
+      //? Fonction de tri anti-chronologique (du plus récent au plus ancien)
+      const antiChrono = (a, b) => ((a < b) ? 1 : -1); 
+      //? Tri des dates extraites
+      const datesSorted = [...dates].sort(antiChrono); 
+      //? Vérification que les dates extraites sont triées de manière identique à la liste triée
+      expect(dates).toEqual(datesSorted); 
+    });    
   })
 })
