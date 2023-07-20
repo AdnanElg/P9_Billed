@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.28% </span>
+                <span class="strong">45.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/29</span>
+                <span class='fraction'>14/31</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">46.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/26</span>
+                <span class='fraction'>13/28</span>
             </div>
         
             
@@ -128,11 +128,7 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,11 +140,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,17 +150,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -184,7 +176,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,6 +186,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,49 +199,45 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//? Importation des modules et des constantes nécessaires
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
 import { ROUTES_PATH } from '../constants/routes.js'
 import { formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
 &nbsp;
-//? Définition de la classe du composant
+&nbsp;
 export default class {
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
     this.store = store
-&nbsp;
     
-    //? Gestion de l'événement du clic sur le bouton "Nouvelle facture"
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
+  
     <span class="missing-if-branch" title="if path not taken" >I</span>if (buttonNewBill) <span class="cstat-no" title="statement not covered" >buttonNewBill.addEventListener('click', this.handleClickNewBill)</span>
     
-    //? Gestion de l'événement du clic sur l'icône "Eye" (pour afficher la facture)
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`)
     
     <span class="missing-if-branch" title="else path not taken" >E</span>if (iconEye) iconEye.forEach(<span class="fstat-no" title="function not covered" >ic</span>on =&gt; {
 <span class="cstat-no" title="statement not covered" >      icon.addEventListener('click', <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >this.handleClickIconEye(icon))</span></span>
     });
     
-    //? Initialisation du composant Logout
     new Logout({ document, localStorage, onNavigate })
   }
 &nbsp;
-  //? Gestion du clic sur le bouton "Nouvelle facture"
   handleClickNewBill = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >    this.onNavigate(ROUTES_PATH['NewBill'])</span>
   }
 &nbsp;
-  //? Gestion du clic sur l'icône "Eye" (pour afficher la facture)
   handleClickIconEye = <span class="fstat-no" title="function not covered" >(i</span>con) =&gt; {
     const billUrl = <span class="cstat-no" title="statement not covered" >icon.getAttribute("data-bill-url")</span>
+<span class="cstat-no" title="statement not covered" >    console.log(billUrl)</span>
 &nbsp;
     const imgWidth = <span class="cstat-no" title="statement not covered" >Math.floor($('#modaleFile').width() * 0.5)</span>
 <span class="cstat-no" title="statement not covered" >    $('#modaleFile').find(".modal-body").html(`&lt;div style='text-align: center;' class="bill-proof-container"&gt;&lt;img width=${imgWidth} src=${billUrl} alt="Bill" /&gt;&lt;/div&gt;`)</span>
 <span class="cstat-no" title="statement not covered" >    $('#modaleFile').modal('show')</span>
   }
 &nbsp;
-  //? Récupération des factures
+&nbsp;
   getBills = () =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (this.store) {
       return this.store
@@ -259,15 +247,15 @@ export default class {
           const bills = <span class="cstat-no" title="statement not covered" >snapshot</span>
             .map(<span class="fstat-no" title="function not covered" >do</span>c =&gt; {
 <span class="cstat-no" title="statement not covered" >              try {</span>
-                //? Formatage de la date et du statut de chaque facture
 <span class="cstat-no" title="statement not covered" >                return {</span>
                   ...doc,
                   date: doc.date,
                   status: formatStatus(doc.status)
                 }
               } catch(e) {
-                //? Si une erreur se produit lors du formatage, on gère l'exception ici
-                //? On affiche le message d'erreur, puis on retourne la date non formatée
+              // if for some reason, corrupted data was introduced, we manage here failing formatDate function
+              // log the error and return unformatted date in that case
+<span class="cstat-no" title="statement not covered" >              console.log(e,'for',doc)</span>
 <span class="cstat-no" title="statement not covered" >                console.log(e, 'for', doc)</span>
 <span class="cstat-no" title="statement not covered" >                return {</span>
                   ...doc,
@@ -289,7 +277,7 @@ export default class {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 14 2023 15:48:39 GMT+0200 (heure d’été d’Europe centrale)
+                at Thu Jul 20 2023 11:45:22 GMT+0200 (heure d’été d’Europe centrale)
             </div>
         </div>
         <script src="../prettify.js"></script>

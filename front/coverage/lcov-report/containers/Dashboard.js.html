@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.29% </span>
+                <span class="strong">89.41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/84</span>
+                <span class='fraction'>76/85</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.83% </span>
+                <span class="strong">95.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>69/72</span>
+                <span class='fraction'>70/73</span>
             </div>
         
             
@@ -245,7 +245,16 @@
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a>
 <a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -303,6 +312,7 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -325,11 +335,13 @@
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -344,11 +356,15 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -397,6 +413,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -491,6 +509,7 @@ export const cards = (bills) =&gt; {
   return bills &amp;&amp; bills.length ? bills.map(bill =&gt; card(bill)).join("") : ""
 }
 &nbsp;
+&nbsp;
 export const getStatus = (index) =&gt; {
   switch (index) {
     case 1:
@@ -513,12 +532,14 @@ export default class {
     new Logout({ localStorage, onNavigate })
   }
 &nbsp;
+&nbsp;
   handleClickIconEye = () =&gt; {
     const billUrl = $('#icon-eye-d').attr("data-bill-url")
     const imgWidth = Math.floor($('#modaleFileAdmin1').width() * 0.8)
     $('#modaleFileAdmin1').find(".modal-body").html(`&lt;div style='text-align: center;'&gt;&lt;img width=${imgWidth} src=${billUrl} alt="Bill"/&gt;&lt;/div&gt;`)
     <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof $('#modaleFileAdmin1').modal === 'function') <span class="cstat-no" title="statement not covered" >$('#modaleFileAdmin1').modal('show')</span>
   }
+&nbsp;
 &nbsp;
   handleEditTicket(e, bill, bills) {
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
@@ -528,16 +549,20 @@ export default class {
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
       })
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
-      $('.dashboard-right-container div').html(DashboardFormUI(bill))
+      $('.dashboard-right-container div').html(DashboardFormUI(bill));
       $('.vertical-navbar').css({ height: '150vh' })
       this.counter ++
     } else {
-      $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 &nbsp;
-      $('.dashboard-right-container div').html(`
-        &lt;div id="big-billed-icon" data-testid="big-billed-icon"&gt; ${BigBilledIcon} &lt;/div&gt;
-      `)
-      $('.vertical-navbar').css({ height: '120vh' })
+      //  ! Changement de la couleur bleu en bleu foncer
+      $(`#open-bill${bill.id}`).css({ background: '#2A2B35' });
+&nbsp;
+      // ! Suppression de cette ligne de Code
+      $('.dashboard-right-container').html(`
+        &lt;div id="big-billed-icon" data-testid="big-billed-icon"&gt;&lt;/div&gt;
+      `);
+    console.log('ok');
+      $('.vertical-navbar').css({ height: '120vh' });
       this.counter ++
     }
     $('#icon-eye-d').click(this.handleClickIconEye)
@@ -588,6 +613,8 @@ export default class {
 &nbsp;
   }
 &nbsp;
+  
+&nbsp;
   getBillsAllUsers = () =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (this.store) {
       return this.store
@@ -628,7 +655,7 @@ export default class {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 14 2023 15:48:39 GMT+0200 (heure d’été d’Europe centrale)
+                at Thu Jul 20 2023 11:45:22 GMT+0200 (heure d’été d’Europe centrale)
             </div>
         </div>
         <script src="../prettify.js"></script>

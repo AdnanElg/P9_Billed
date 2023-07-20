@@ -56,6 +56,7 @@ export const cards = (bills) => {
   return bills && bills.length ? bills.map(bill => card(bill)).join("") : ""
 }
 
+
 export const getStatus = (index) => {
   switch (index) {
     case 1:
@@ -78,12 +79,14 @@ export default class {
     new Logout({ localStorage, onNavigate })
   }
 
+
   handleClickIconEye = () => {
     const billUrl = $('#icon-eye-d').attr("data-bill-url")
     const imgWidth = Math.floor($('#modaleFileAdmin1').width() * 0.8)
     $('#modaleFileAdmin1').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} alt="Bill"/></div>`)
     if (typeof $('#modaleFileAdmin1').modal === 'function') $('#modaleFileAdmin1').modal('show')
   }
+
 
   handleEditTicket(e, bill, bills) {
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
@@ -93,16 +96,20 @@ export default class {
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
       })
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
-      $('.dashboard-right-container div').html(DashboardFormUI(bill))
+      $('.dashboard-right-container div').html(DashboardFormUI(bill));
       $('.vertical-navbar').css({ height: '150vh' })
       this.counter ++
     } else {
-      $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
-      $('.dashboard-right-container div').html(`
-        <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
-      `)
-      $('.vertical-navbar').css({ height: '120vh' })
+      //  ! Changement de la couleur bleu en bleu foncer
+      $(`#open-bill${bill.id}`).css({ background: '#2A2B35' });
+
+      // ! Suppression de cette ligne de Code
+      // $('.dashboard-right-container div').html(`
+      //   <div id="big-billed-icon" data-testid="big-billed-icon"></div>
+      // `);
+    console.log('ok');
+      $('.vertical-navbar').css({ height: '120vh' });
       this.counter ++
     }
     $('#icon-eye-d').click(this.handleClickIconEye)
@@ -152,6 +159,8 @@ export default class {
     return bills
 
   }
+
+  
 
   getBillsAllUsers = () => {
     if (this.store) {
