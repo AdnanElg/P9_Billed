@@ -33,9 +33,21 @@ export default class NewBill {
   
   handleChangeFile = e => {
     e.preventDefault()
+    // ? Ajouts d'un sélecteur pour afficher le message d'erreur :
+    const errorFile = document.querySelector('#errorFile')
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
+
+
+     //? Si le fichier sélectionné a une extension .png, .jpeg ou .jpg en masque le message d'erreur :
+      if (/\.(png|jpe?g)$/i.test(fileName)) {
+      errorFile.style.display = "none";
+    //? Si le fichier sélectionné a une extension différente de .png, .jpeg ou .jpg en affiche le message d'erreur :
+    } else {
+      errorFile.style.display = "block";
+      return false;
+    }
 
 
     const formData = new FormData()

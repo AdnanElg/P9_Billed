@@ -210,16 +210,14 @@ export default class {
 
   //? Cette méthode est utilisée pour afficher ou masquer les tickets en fonction de l'index donné.
   handleShowTickets(e, bills, index) {
-    console.log(bills)
-    console.log(index);
     //? Vérifie si le compteur n'est pas défini ou si l'index ne correspond pas à celui actuel.
     //? Si c'est le cas, initialise le compteur à 0 et met à jour l'index actuel.
     if (this.counter === undefined || this.index !== index) this.counter = 0
     if (this.index === undefined || this.index !== index) this.index = index
 
-    //  ! supression if (this.counter % 2 === 0) et ajout de if (this.counter !== undefined).
+ 
     //? Vérifie si le compteur est défini (l'état d'affichage est déjà initialisé).
-    if (this.counter !== undefined) {
+    if (this.counter % 2 === 0) {
       //? Si le compteur est défini, cela signifie que l'affichage est déjà initialisé.
       //? On effectue les actions suivantes pour basculer entre l'affichage et la masquage des tickets.
 
@@ -246,8 +244,9 @@ export default class {
     }
 
     //? Associe le gestionnaire d'événement "click" à chaque ticket pour l'édition.
+    // ! A revoir avec mentor compréhension ? 
     bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+      $(`#open-bill${bill.id}`).off().click((e) => this.handleEditTicket(e, bill, bills))
     })
 
     //? Retourne les tickets après les modifications.

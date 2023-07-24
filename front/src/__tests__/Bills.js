@@ -2,6 +2,8 @@
  * @jest-environment jsdom
  */
 
+// Test = lorsque j'ouvre une modale aux niveaux du bouton
+// Test = mock error 500 et error 504.
 import {screen, waitFor} from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
@@ -26,7 +28,7 @@ describe("Given I am connected as an employee", () => {
       await waitFor(() => screen.getByTestId('icon-window'))
       const windowIcon = screen.getByTestId('icon-window')
       //to-do write expect expression
-
+      // ! finir le teste .
     })
 
     test("Then bills should be ordered from earliest to latest", () => {

@@ -1,7 +1,9 @@
 /**
  * @jest-environment jsdom
  */
-
+// Ajouts d'un tests : verification avec le bon etat du fichier et mauvaise.
+// tester le formulaire complet et l'envoie.
+// ! faire un test mock posts build.
 import { screen } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
