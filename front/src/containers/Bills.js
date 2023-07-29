@@ -8,7 +8,7 @@ export default class {
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
-    this.store = store
+    this.store = store;
     
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
   
@@ -29,7 +29,7 @@ export default class {
 
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
-    console.log(billUrl)
+    console.log(billUrl);
 
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
     $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)

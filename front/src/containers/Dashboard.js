@@ -244,7 +244,7 @@ export default class {
     }
 
     //? Associe le gestionnaire d'événement "click" à chaque ticket pour l'édition.
-    // ! A revoir avec mentor compréhension ? 
+    //! TEST : 4
     bills.forEach(bill => {
       $(`#open-bill${bill.id}`).off().click((e) => this.handleEditTicket(e, bill, bills))
     })
