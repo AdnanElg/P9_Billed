@@ -11,18 +11,19 @@ import mockStore from "../__mocks__/store";
 import router from "../app/Router.js";
 import { ROUTES_PATH } from "../constants/routes.js";
 
+
 jest.mock("../app/store", () => mockStore);
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
 
-    function initialisationBills(){
+    function initialisationBills(){ 
       document.body.innerHTML = BillsUI({ data: bills })
   
       const onNavigate = jest.fn(()=>{})
   
       const store = mockStore
-  
+
       const userObj = {
         type:"Employee",
         email:"employee@test.tld",
@@ -129,9 +130,8 @@ describe("Given I am connected as an employee", () => {
         expect(modal).toBeTruthy();
       });
 
-      
 
-      // ! TEST : 7 (Redirection vers NewBill)
+      // ! TEST : 7 
       test("Then clicking on the 'Nouvelle note de frais' button should redirect to NewBill form", () => {
         //? Remplacez la fonction native `localStorage` par `localStorageMock`.
         Object.defineProperty(window, 'localStorage', { value: localStorageMock });
@@ -163,7 +163,39 @@ describe("Given I am connected as an employee", () => {
         fireEvent.click(newBillButton);
       });
 
-      
+
+      // ! TEST : 8 
+      test("Then clicking on the 'layout-disconnect' button should redirect to Login form", () => {
+        //? Remplacez la fonction native `localStorage` par `localStorageMock`.
+        Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+
+        //? Ajoutez un élément 'user' simulé au stockage local avec une valeur JSON.
+        window.localStorage.setItem('user', JSON.stringify({
+          type: 'Employee'
+        }));
+
+        //? Créez un élément "div" avec l'ID "root" et ajoutez-le au corps du document.
+        const root = document.createElement("div");
+        root.setAttribute("id", "root");
+        document.body.append(root);
+
+        //? Appelez la fonction `router()` pour simuler la navigation.
+        router({ onNavigate: (path) => {
+          //? Vérifiez que la méthode onNavigate a été appelée avec le bon chemin.
+          expect(path).toBe(ROUTES_PATH['Login']);
+        }});
+
+        //? Déclenchez l'événement `onNavigate` avec le chemin `ROUTES_PATH.Bills`
+        //? pour simuler la navigation vers la page des factures (bills).
+        window.onNavigate(ROUTES_PATH.Bills);
+
+        //? Récupérez le bouton "layout-disconnect".
+        const btnLogout = screen.getByTestId('layout-disconnect');
+
+        //? Simulez le clic sur le bouton "layout-disconnect".
+        fireEvent.click(btnLogout);
+      });
+
       // Test d'intégration -> GET
       describe("When I navigate to Bills Page", () => {
         test("fetches bills from mock API GET", async () => {
@@ -236,8 +268,7 @@ describe("Given I am connected as an employee", () => {
             expect(message).toBeTruthy()
           })
         })
-      })
-
+      });
     });
   });
 });
