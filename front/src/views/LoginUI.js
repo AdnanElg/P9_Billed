@@ -1,4 +1,4 @@
-
+// ! TEST : Debug : si un administrateur remplit correctement les champs du Login, il devrait naviguer sur la page Dashboard :
 export default () => {
 
   return(`

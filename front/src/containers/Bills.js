@@ -3,13 +3,11 @@ import { ROUTES_PATH } from '../constants/routes.js'
 import { formatStatus } from "../app/format.js"
 import Logout from "./Logout.js"
 
-
 export default class {
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
     this.store = store;
-    
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
   
     if (buttonNewBill) buttonNewBill.addEventListener('click', this.handleClickNewBill)

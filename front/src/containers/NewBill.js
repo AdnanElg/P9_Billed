@@ -15,7 +15,7 @@ export default class NewBill {
     formNewBill.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      // ! TEST : 3
+      // ! TEST : Debug pour envoyer que les fichier avec l'extension .png, .jpeg ou .jpg à l'envoie du formulaire :
       //? Si le fichier sélectionné a une extension .png, .jpeg ou .jpg en envoir le format :
       if (/\.(png|jpe?g)$/i.test(file.value)) {
         this.handleSubmit(e);
@@ -40,7 +40,7 @@ export default class NewBill {
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
 
-    // ! TEST : 3
+    // ! TEST : Debug pour uploade que les fichier avec l'extension .png, .jpeg ou .jpg :
      //? Si le fichier sélectionné a une extension .png, .jpeg ou .jpg en masque le message d'erreur :
       if (/\.(png|jpe?g)$/i.test(fileName)) {
       errorFile.style.display = "none";
