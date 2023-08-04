@@ -19,7 +19,7 @@ export default (height) => {
           <div id='layout-icon2' data-testid="icon-mail">
             ${MailIcon}
           </div>
-          <div id='layout-disconnect'>
+          <div data-testid="layout-disconnect" id='layout-disconnect'>
             ${DisconnectIcon}
           </div>
       </div>

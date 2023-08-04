@@ -52,18 +52,9 @@ describe("Given I am connected as an employee", () => {
       });
 
       //? TEST UNITAIRE ET INTÉGRATION + BUG : 
-
+      
       // ! TEST : Ensuite, l'icône de facturation dans la disposition verticale devrait être mise en évidence :
       test("Then bill icon in vertical layout should be highlighted", async () => {
-        //? Remplace la fonction native `localStorage` par `localStorageMock`.
-        //? Cela permet de simuler le stockage local pour les tests.
-        Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-
-        //? Ajoute un élément 'user' simulé au stockage local avec une valeur JSON.
-        window.localStorage.setItem('user', JSON.stringify({
-          type: 'Employee'
-        }))
-
         //? Crée un élément "div" avec l'ID "root" et l'ajoute au corps du document.
         const root = document.createElement("div")
         root.setAttribute("id", "root")
@@ -102,49 +93,54 @@ describe("Given I am connected as an employee", () => {
 
 
       // ! TEST : Ensuite, je peux ouvrir une fenêtre modale en cliquant sur l'icône de l'œil :
-      test("Then I can open a modal by clicking on the eye icon", async () => {
-        //? Remplacez la fonction native `localStorage` par `localStorageMock`.
-        Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-      
-        //? Ajoutez un élément 'user' simulé au stockage local avec une valeur JSON.
-        window.localStorage.setItem('user', JSON.stringify({
-          type: 'Employee'
-        }))
-      
+      test("Then I can open a modal by clicking on the eye icon", async () => {  
+        $.fn.modal = jest.fn(); 
+
         //? Créez un élément "div" avec l'ID "root" et ajoutez-le au corps du document.
         const root = document.createElement("div");
         root.setAttribute("id", "root");
         document.body.append(root);
-      
+
         //? Appelez la fonction `router()` pour simuler la navigation.
         router();
-      
+
         //? Déclenchez l'événement `onNavigate` avec le chemin `ROUTES_PATH.Bills`
         //? pour simuler la navigation vers la page des factures (bills).
         window.onNavigate(ROUTES_PATH.Bills);
-      
+
         //? Ajoutez une donnée de facture dans le tableau des factures pour le test.
         const testData = bills[0];
         document.body.innerHTML = BillsUI({ data: [testData] });
-      
+
+        //? Instanciez un objet Bills pour gérer l'affichage des factures.
+        const billsContainer = new Bills({
+          document, onNavigate, store: mockStore, localStorage: window.localStorage
+        });
+
         //? Récupérez l'icône "eye" en utilisant un attribut de test (test ID).
         const eyeIcon = screen.getByTestId('icon-eye');
-      
+
+        //? Créez une fonction de rappel pour ouvrir la modale lorsqu'on clique sur l'icône "eye".
+        const openModale = jest.fn(billsContainer.handleClickIconEye(eyeIcon));
+
+        //? Ajoutez un écouteur d'événement pour le clic sur l'icône "eye".
+        eyeIcon.addEventListener('click', openModale);
+
         //? Simulez le clic sur l'icône "eye".
         fireEvent.click(eyeIcon);
+
+        //? Vérifiez si la fonction d'ouverture de la modale a été appelée.
+        expect(openModale).toHaveBeenCalled();
+
+        //? Vérifiez si la modale contenant les détails de la facture est affichée.
+        const modalEmploye = screen.getByTestId('modaleEmployee');
+        expect(modalEmploye).toBeTruthy();
+
       });
 
 
       // ! TEST : Ensuite, en cliquant sur le bouton 'Nouvelle note de frais', je devrais être redirigé vers le formulaire Nouvelle Note de frais :
       test("Then clicking on the 'Nouvelle note de frais' button should redirect to NewBill form", () => {
-        //? Remplacez la fonction native `localStorage` par `localStorageMock`.
-        Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-
-        //? Ajoutez un élément 'user' simulé au stockage local avec une valeur JSON.
-        window.localStorage.setItem('user', JSON.stringify({
-          type: 'Employee'
-        }));
-
         //? Créez un élément "div" avec l'ID "root" et ajoutez-le au corps du document.
         const root = document.createElement("div");
         root.setAttribute("id", "root");
