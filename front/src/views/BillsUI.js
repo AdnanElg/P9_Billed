@@ -23,12 +23,20 @@ const row = (bill) => {
   }
 
   //? Mise a jour des dates de facons croissante du plus grans aux plus petits
+  //? La fonction `rows` prend un tableau `data` en entrée.
   const rows = (data) => {
-    console.log(data)
-    return (data && data.length) ? data
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .map(bill => row(bill)).join("") : ""
-    }
+    //? Vérifie si `data` existe et a une longueur non nulle avant de procéder.
+    return (data && data.length) ? 
+      //? Si `data` existe et a une longueur non nulle, procède à la suite du traitement :
+      //? 1. Trie le tableau `data` en fonction des dates des éléments, du plus récent au plus ancien.
+      //? 2. Ensuite, pour chaque élément `bill` du tableau trié, appelle la fonction `row(bill)` pour obtenir une chaîne de caractères représentant cet élément sous forme de ligne.
+      //? 3. Concatène toutes les lignes générées à l'étape précédente en une seule chaîne de caractères, sans séparateur.
+      data.sort((a, b) => new Date(b.date) - new Date(a.date)).map(bill => row(bill)).join("") 
+      : 
+      //? Si `data` est vide ou n'existe pas, retourne une chaîne vide.
+      "";
+  }
+
   
 
 export default ({ data: bills, loading, error }) => {

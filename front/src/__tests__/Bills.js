@@ -16,32 +16,40 @@ jest.mock("../app/store", () => mockStore);
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
+    //? La fonction "initialisationBills" est utilisée pour initialiser l'application des factures.
+    function initialisationBills() {
+      //? On remplace le contenu du body par le rendu de l'interface utilisateur des factures en utilisant les données "bills".
+      document.body.innerHTML = BillsUI({ data: bills });
 
-    function initialisationBills(){ 
-      document.body.innerHTML = BillsUI({ data: bills })
-  
-      const onNavigate = jest.fn(()=>{})
-  
-      const store = mockStore
+      //? On crée une fonction "onNavigate" qui sera utilisée pour simuler la navigation.
+      const onNavigate = jest.fn(() => {});
 
+      //? On utilise le mockStore pour simuler un magasin Redux.
+      const store = mockStore;
+
+      //? On crée un objet d'utilisateur simulé pour le stocker dans le localStorage.
       const userObj = {
-        type:"Employee",
-        email:"employee@test.tld",
-        password:"employee",
-        status:"connected"
-      }
-  
-      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-      window.localStorage.setItem('user', JSON.stringify(userObj))
-  
-      return new Bills({document, onNavigate, store, localStorage })
+        type: "Employee",
+        email: "employee@test.tld",
+        password: "employee",
+        status: "connected",
+      };
+
+      //? On définit une propriété personnalisée "localStorage" pour la fenêtre (pour éviter les erreurs).
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+      //? On stocke l'objet utilisateur simulé dans le localStorage.
+      window.localStorage.setItem('user', JSON.stringify(userObj));
+      //? On instancie un nouvel objet "Bills" avec les paramètres nécessaires pour les tests.
+      return new Bills({ document, onNavigate, store, localStorage });
     }
-    
-    describe("When I am on Bills Page", () => {
-      let theBills
-      beforeEach(() =>{
-        theBills = initialisationBills()
-      })
+
+    describe("When I'm on the bills page", () => {
+      //? Une variable pour stocker l'objet "Bills" initialisé avant chaque test.
+      let theBills;
+      beforeEach(() => {
+        //? On initialise l'objet "Bills" avant chaque test en utilisant la fonction "initialisationBills".
+        theBills = initialisationBills();
+      });
 
       //? TEST UNITAIRE ET INTÉGRATION + BUG : 
 
@@ -161,77 +169,108 @@ describe("Given I am connected as an employee", () => {
 
 
       //! TEST : Test d'intégration -> GET
-      describe("When I navigate to Bills Page", () => {
-        test("fetches bills from mock API GET", async () => {
+      describe("When I navigate to the invoices page", () => {
+        //? Définit un test qui récupère les factures depuis une API fictive via GET
+        test("fetch invoices from mock API via GET", async () => {
+          //? On configure une entrée dans le localStorage pour simuler un utilisateur connecté de type "Employee"
           localStorage.setItem("user", JSON.stringify({ 
-            type:"Employee",
-            email:"a@a",
-            password:"employee",
-            status:"connected"
+            type: "Employee",
+            email: "a@a",
+            password: "employee",
+            status: "connected"
           }));
-          const root = document.createElement("div")
-          root.setAttribute("id", "root")
-          document.body.append(root)
-          router()
-          window.onNavigate(ROUTES_PATH.Bills)
+          
+          //? Crée un élément "div" pour servir de racine de l'application
+          const root = document.createElement("div");
+          root.setAttribute("id", "root");
+          document.body.append(root);
+          
+          //? Charge le routeur de l'application
+          router();
+          
+          //? Déclenche le changement de route vers la page des factures
+          window.onNavigate(ROUTES_PATH.Bills);
+          
+          //? Attend que les éléments "accepted", "pending" et "refused" soient présents dans l'interface
           await waitFor(() => {
-            expect(screen.getByText("accepted")).toBeTruthy()
-            expect(screen.getAllByText("pending")).toBeTruthy()
-            expect(screen.getAllByText("refused")).toBeTruthy()
-          })
-        })
+            expect(screen.getByText("accepted")).toBeTruthy();
+            expect(screen.getAllByText("pending")).toBeTruthy();
+            expect(screen.getAllByText("refused")).toBeTruthy();
+          });
+        });
         
-        describe("When an error occurs on API", () => {
+        //? Définit une autre suite de tests pour le cas où une erreur survient dans l'API
+        describe("When an error occurs in the API", () => {
           beforeEach(() => {
-            jest.spyOn(mockStore, "bills")
-
+            //? On utilise "jest.spyOn" pour espionner la fonction "bills" du mockStore
+            jest.spyOn(mockStore, "bills");
+            
+            //? On définit une propriété personnalisée "localStorage" pour la fenêtre (pour éviter les erreurs)
             Object.defineProperty(
                 window,
                 'localStorage',
                 { value: localStorageMock }
-            )
-
+            );
+            
+            //? On configure une entrée dans le localStorage pour simuler un utilisateur connecté de type "Employee"
             window.localStorage.setItem('user', JSON.stringify({
-              type:"Employee",
-              email:"a@a",
-              password:"employee",
-              status:"connected"
-            }))
-            const root = document.createElement("div")
-            root.setAttribute("id", "root")
-            document.body.appendChild(root)
-            router()
-          })
+              type: "Employee",
+              email: "a@a",
+              password: "employee",
+              status: "connected"
+            }));
+            
+            //? Crée un élément "div" pour servir de racine de l'application
+            const root = document.createElement("div");
+            root.setAttribute("id", "root");
+            document.body.appendChild(root);
+            
+            //? Charge le routeur de l'application
+            router();
+          });
           
-          test("fetches bills from an API and fails with 404 message error", async () => {
-      
+          //? Définit un test qui récupère les factures depuis l'API mais échoue avec un message d'erreur 404
+          test("fetches invoices from API but fails with 404 error message", async () => {
+        
+            //? On substitue temporairement la fonction "bills" du mockStore pour qu'elle renvoie une promesse rejetée avec l'erreur "Erreur 404"
             mockStore.bills.mockImplementationOnce(() => {
               return {
-                list : () =>  {
-                  return Promise.reject(new Error("Erreur 404"))
+                list: () => {
+                  return Promise.reject(new Error("Erreur 404"));
                 }
-              }})
-            window.onNavigate(ROUTES_PATH.Bills)
+              };
+            });
+            
+            //? Déclenche le changement de route vers la page des factures
+            window.onNavigate(ROUTES_PATH.Bills);
+            
+            //? Attend que l'interface affiche le message d'erreur "Erreur 404"
             await new Promise(process.nextTick);
-            const message = await screen.getByText(/Erreur 404/)
-            expect(message).toBeTruthy()
-          })
-      
-          test("fetches messages from an API and fails with 500 message error", async () => {
-      
+            const message = await screen.getByText(/Erreur 404/);
+            expect(message).toBeTruthy();
+          });
+        
+          //? Définit un test qui récupère les messages depuis l'API mais échoue avec un message d'erreur 500
+          test("fetches messages from API but fails with a 500 error message", async () => {
+        
+            //? On substitue temporairement la fonction "bills" du mockStore pour qu'elle renvoie une promesse rejetée avec l'erreur "Erreur 500"
             mockStore.bills.mockImplementationOnce(() => {
               return {
-                list : () =>  {
-                  return Promise.reject(new Error("Erreur 500"))
+                list: () => {
+                  return Promise.reject(new Error("Erreur 500"));
                 }
-              }})
-      
-            window.onNavigate(ROUTES_PATH.Bills)
+              };
+            });
+        
+            //? Déclenche le changement de route vers la page des factures
+            window.onNavigate(ROUTES_PATH.Bills);
+        
+            //? Attend que l'interface affiche le message d'erreur "Erreur 500"
             await new Promise(process.nextTick);
-            const message = await screen.getByText(/Erreur 500/)
-            expect(message).toBeTruthy()
-          })
-        })
+            const message = await screen.getByText(/Erreur 500/);
+            expect(message).toBeTruthy();
+          });
+        });
       });
     });
   });
