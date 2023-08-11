@@ -200,7 +200,7 @@ export default class {
     //? Associe le gestionnaire d'événement "click" à chaque ticket pour l'édition.
     //! TEST : Debug pour pourvoir déplier plusieurs listes, et consulter les tickets de chacune des deux listes.
     bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+      $(`#open-bill${bill.id}`).off().click((e) => this.handleEditTicket(e, bill, bills))
     });
 
     //? Retourne les tickets après les modifications.

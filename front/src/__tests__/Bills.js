@@ -52,7 +52,6 @@ describe("Given I am connected as an employee", () => {
       });
 
       //? TEST UNITAIRE ET INTÉGRATION + BUG : 
-  
 
       // ! TEST : Ensuite, l'icône de facturation dans la disposition verticale devrait être mise en évidence :
       test("Then bill icon in vertical layout should be highlighted", async () => {
@@ -167,15 +166,7 @@ describe("Given I am connected as an employee", () => {
       //! TEST : Test d'intégration -> GET
       describe("When I navigate to the invoices page", () => {
         //? Définit un test qui récupère les factures depuis une API fictive via GET
-        test("fetch invoices from mock API via GET", async () => {
-          //? On configure une entrée dans le localStorage pour simuler un utilisateur connecté de type "Employee"
-          localStorage.setItem("user", JSON.stringify({ 
-            type: "Employee",
-            email: "a@a",
-            password: "employee",
-            status: "connected"
-          }));
-          
+        test("fetch invoices from mock API via GET", async () => { 
           //? Crée un élément "div" pour servir de racine de l'application
           const root = document.createElement("div");
           root.setAttribute("id", "root");
@@ -207,14 +198,6 @@ describe("Given I am connected as an employee", () => {
                 'localStorage',
                 { value: localStorageMock }
             );
-            
-            //? On configure une entrée dans le localStorage pour simuler un utilisateur connecté de type "Employee"
-            window.localStorage.setItem('user', JSON.stringify({
-              type: "Employee",
-              email: "a@a",
-              password: "employee",
-              status: "connected"
-            }));
             
             //? Crée un élément "div" pour servir de racine de l'application
             const root = document.createElement("div");
