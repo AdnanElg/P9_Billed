@@ -103,29 +103,49 @@ export default class {
 
 
   handleEditTicket(e, bill, bills) {
+    //? Vérifie si le compteur est indéfini ou si l'ID de la facture est différent de celui en cours.
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
+    //? Vérifie si l'ID est indéfini ou si l'ID de la facture est différent de celui en cours, puis met à jour l'ID.
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
-
+  
+    //? Si le compteur est pair, c'est la première fois que l'édition est déclenchée.
     if (this.counter % 2 === 0) {
+      //? Change la couleur de fond de toutes les factures dans la liste en bleu.
       bills.forEach(b => {
+        // console.log(this.counter);
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
       })
+      //? Change la couleur de fond de la facture actuelle en noir.
       $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
+      //? Remplace le contenu de la partie droite du tableau de bord avec un formulaire basé sur les informations de la facture.
       $('.dashboard-right-container div').html(DashboardFormUI(bill));
+      //? Agrandit la barre de navigation verticale.
       $('.vertical-navbar').css({ height: '150vh' })
+      //? Incrémente le compteur.
       this.counter ++
-    } else {
+    } 
+    //? Si le compteur est impair, c'est la deuxième fois (pour annuler l'édition).
+    else {
+      //? Change la couleur de fond de la facture actuelle en bleu.
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' });
-
+  
+      //? Remplace le contenu de la partie droite du tableau de bord avec une icône de facture volumineuse.
       $(".dashboard-right-container div").html(`
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
       `);
-
+  
+      //? Réduit la hauteur de la barre de navigation verticale.
       $('.vertical-navbar').css({ height: '120vh' });
+      //? Incrémente le compteur.
+      // console.log(this.counter)
       this.counter ++
     }
+  
+    //? Associe le gestionnaire d'événement "click" à l'icône de l'œil pour afficher une image de la facture.
     $('#icon-eye-d').click(this.handleClickIconEye)
+    //? Associe le gestionnaire d'événement "click" au bouton d'acceptation pour soumettre la facture acceptée.
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
+    //? Associe le gestionnaire d'événement "click" au bouton de refus pour soumettre la facture refusée.
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))  
   }
 
@@ -181,7 +201,7 @@ export default class {
     //! TEST : Debug pour pourvoir déplier plusieurs listes, et consulter les tickets de chacune des deux listes.
     bills.forEach(bill => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
-    })
+    });
 
     //? Retourne les tickets après les modifications.
     return bills

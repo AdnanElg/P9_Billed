@@ -52,7 +52,8 @@ describe("Given I am connected as an employee", () => {
       });
 
       //? TEST UNITAIRE ET INTÉGRATION + BUG : 
-      
+  
+
       // ! TEST : Ensuite, l'icône de facturation dans la disposition verticale devrait être mise en évidence :
       test("Then bill icon in vertical layout should be highlighted", async () => {
         //? Crée un élément "div" avec l'ID "root" et l'ajoute au corps du document.
@@ -71,7 +72,6 @@ describe("Given I am connected as an employee", () => {
         const windowIcon = screen.getByTestId('icon-window')
 
         //? Vérifie que la classe `active-icon` est présente dans la liste des classes de l'icône de fenêtre.
-        //? Ceci est un test pour s'assurer que l'icône est active.
         expect(windowIcon.classList.contains('active-icon')).toBe(true);
       })
 
@@ -91,6 +91,7 @@ describe("Given I am connected as an employee", () => {
         expect(dates).toEqual(datesSorted); 
       }); 
 
+      
 
       // ! TEST : Ensuite, je peux ouvrir une fenêtre modale en cliquant sur l'icône de l'œil :
       test("Then I can open a modal by clicking on the eye icon", async () => {  
@@ -135,7 +136,6 @@ describe("Given I am connected as an employee", () => {
         //? Vérifiez si la modale contenant les détails de la facture est affichée.
         const modalEmploye = screen.getByTestId('modaleEmployee');
         expect(modalEmploye).toBeTruthy();
-
       });
 
 
