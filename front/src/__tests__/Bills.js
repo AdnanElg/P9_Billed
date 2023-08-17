@@ -41,42 +41,43 @@ describe("Given I am connected as an employee", () => {
       window.localStorage.setItem('user', JSON.stringify(userObj));
       //? On instancie un nouvel objet "Bills" avec les paramètres nécessaires pour les tests.
       return new Bills({ document, onNavigate, store, localStorage });
-    }
+    };
+ 
+    //? Une variable pour stocker l'objet "Bills" initialisé avant chaque test.
+    let theBills;
+    beforeEach(() => {
+      //? On initialise l'objet "Bills" avant chaque test en utilisant la fonction "initialisationBills".
+      theBills = initialisationBills();
+    });
 
-    describe("When I'm on the bills page", () => {
-      //? Une variable pour stocker l'objet "Bills" initialisé avant chaque test.
-      let theBills;
-      beforeEach(() => {
-        //? On initialise l'objet "Bills" avant chaque test en utilisant la fonction "initialisationBills".
-        theBills = initialisationBills();
-      });
+    // ***************************************************************************
+    // *** TEST FONCTIONNELS && TEST UNITAIRES ***
+    // ***************************************************************************
+    
+    // ! TEST : Ensuite, l'icône de facturation dans la disposition verticale devrait être mise en évidence :
+    test("Then bill icon in vertical layout should be highlighted", async () => {
+      //? Crée un élément "div" avec l'ID "root" et l'ajoute au corps du document.
+      const root = document.createElement("div")
+      root.setAttribute("id", "root")
+      document.body.append(root)
+    
+      //? Appelle la fonction `router()` pour simuler la navigation.
+      router()
 
-      //? TEST UNITAIRE ET INTÉGRATION + BUG : 
+      //? Déclenche l'événement `onNavigate` avec le chemin `ROUTES_PATH.Bills`
+      //? pour simuler la navigation vers la page des factures (bills).
+      window.onNavigate(ROUTES_PATH.Bills)
 
-      // ! TEST : Ensuite, l'icône de facturation dans la disposition verticale devrait être mise en évidence :
-      test("Then bill icon in vertical layout should be highlighted", async () => {
-        //? Crée un élément "div" avec l'ID "root" et l'ajoute au corps du document.
-        const root = document.createElement("div")
-        root.setAttribute("id", "root")
-        document.body.append(root)
+      //? Récupère l'icône de fenêtre en utilisant un attribut de test (test ID).
+      const windowIcon = screen.getByTestId('icon-window')
 
-        //? Appelle la fonction `router()` pour simuler la navigation.
-        router()
-
-        //? Déclenche l'événement `onNavigate` avec le chemin `ROUTES_PATH.Bills`
-        //? pour simuler la navigation vers la page des factures (bills).
-        window.onNavigate(ROUTES_PATH.Bills)
-
-        //? Récupère l'icône de fenêtre en utilisant un attribut de test (test ID).
-        const windowIcon = screen.getByTestId('icon-window')
-
-        //? Vérifie que la classe `active-icon` est présente dans la liste des classes de l'icône de fenêtre.
-        expect(windowIcon.classList.contains('active-icon')).toBe(true);
-      })
+      //? Vérifie que la classe `active-icon` est présente dans la liste des classes de l'icône de fenêtre.
+      expect(windowIcon.classList.contains('active-icon')).toBe(true);
+    });
 
 
-      // ! TEST : Ensuite, les factures devraient être classées de la plus ancienne à la plus récente :
-      test("Then bills should be ordered from earliest to latest", () => {
+    // ! TEST : Ensuite, les factures devraient être classées de la plus ancienne à la plus récente :
+    test("Then bills should be ordered from earliest to latest", () => {
         //? Définition du contenu du corps du document avec les données des factures
         document.body.innerHTML = BillsUI({ data: bills }); 
         //? Récupération de toutes les dates correspondantes au format spécifié et extraction du contenu HTML
@@ -88,12 +89,11 @@ describe("Given I am connected as an employee", () => {
         const datesSorted = [...dates].sort(antiChrono); 
         //? Vérification que les dates extraites sont triées de manière identique à la liste triée
         expect(dates).toEqual(datesSorted); 
-      }); 
+    }); 
 
       
-
-      // ! TEST : Ensuite, je peux ouvrir une fenêtre modale en cliquant sur l'icône de l'œil :
-      test("Then I can open a modal by clicking on the eye icon", async () => {  
+    // ! TEST : Ensuite, je peux ouvrir une fenêtre modale en cliquant sur l'icône de l'œil :
+    test("Then I can open a modal by clicking on the eye icon", async () => {  
         $.fn.modal = jest.fn(); 
 
         //? Créez un élément "div" avec l'ID "root" et ajoutez-le au corps du document.
@@ -135,11 +135,11 @@ describe("Given I am connected as an employee", () => {
         //? Vérifiez si la modale contenant les détails de la facture est affichée.
         const modalEmploye = screen.getByTestId('modaleEmployee');
         expect(modalEmploye).toBeTruthy();
-      });
+    });
 
 
-      // ! TEST : Ensuite, en cliquant sur le bouton 'Nouvelle note de frais', je devrais être redirigé vers le formulaire Nouvelle Note de frais :
-      test("Then clicking on the 'Nouvelle note de frais' button should redirect to NewBill form", () => {
+    // ! TEST : Ensuite, en cliquant sur le bouton 'Nouvelle note de frais', je devrais être redirigé vers le formulaire Nouvelle Note de frais :
+    test("Then clicking on the 'Nouvelle note de frais' button should redirect to NewBill form", () => {
         //? Créez un élément "div" avec l'ID "root" et ajoutez-le au corps du document.
         const root = document.createElement("div");
         root.setAttribute("id", "root");
@@ -160,11 +160,15 @@ describe("Given I am connected as an employee", () => {
 
         //? Simulez le clic sur le bouton "Nouvelle note de frais".
         fireEvent.click(newBillButton);
-      });
+    });
+    
 
+    // ***************************************************************************
+    // *** TEST INTÉGRATION ***
+    // ***************************************************************************
 
-      //! TEST : Test d'intégration -> GET
-      describe("When I navigate to the invoices page", () => {
+    //! TEST : Test d'intégration -> GET
+    describe("When I navigate to the invoices page", () => {
         //? Définit un test qui récupère les factures depuis une API fictive via GET
         test("fetch invoices from mock API via GET", async () => { 
           //? Crée un élément "div" pour servir de racine de l'application
@@ -206,10 +210,10 @@ describe("Given I am connected as an employee", () => {
             
             //? Charge le routeur de l'application
             router();
-          });
+        });
           
-          //? Définit un test qui récupère les factures depuis l'API mais échoue avec un message d'erreur 404
-          test("fetches invoices from API but fails with 404 error message", async () => {
+        //? Définit un test qui récupère les factures depuis l'API mais échoue avec un message d'erreur 404
+        test("fetches invoices from API but fails with 404 error message", async () => {
         
             //? On substitue temporairement la fonction "bills" du mockStore pour qu'elle renvoie une promesse rejetée avec l'erreur "Erreur 404"
             mockStore.bills.mockImplementationOnce(() => {
@@ -227,10 +231,10 @@ describe("Given I am connected as an employee", () => {
             await new Promise(process.nextTick);
             const message = await screen.getByText(/Erreur 404/);
             expect(message).toBeTruthy();
-          });
+        });
         
-          //? Définit un test qui récupère les messages depuis l'API mais échoue avec un message d'erreur 500
-          test("fetches messages from API but fails with a 500 error message", async () => {
+        //? Définit un test qui récupère les messages depuis l'API mais échoue avec un message d'erreur 500
+        test("fetches messages from API but fails with a 500 error message", async () => {
         
             //? On substitue temporairement la fonction "bills" du mockStore pour qu'elle renvoie une promesse rejetée avec l'erreur "Erreur 500"
             mockStore.bills.mockImplementationOnce(() => {
@@ -248,7 +252,6 @@ describe("Given I am connected as an employee", () => {
             await new Promise(process.nextTick);
             const message = await screen.getByText(/Erreur 500/);
             expect(message).toBeTruthy();
-          });
         });
       });
     });
