@@ -32,6 +32,7 @@ export default class NewBill {
     new Logout({ document, localStorage, onNavigate })
   }
   
+  
   handleChangeFile = e => {
     e.preventDefault()
     // ? Ajouts d'un sélecteur pour afficher le message d'erreur :
