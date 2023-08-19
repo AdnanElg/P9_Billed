@@ -7,52 +7,35 @@ export default class NewBill {
     this.onNavigate = onNavigate
     this.store = store
     const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
+    formNewBill.addEventListener("submit", this.handleSubmit)
     const file = this.document.querySelector(`input[data-testid="file"]`)
-    // ? Ajout d'un sélecteur pour afficher le message d'erreur
-    const errorFile = document.querySelector('#errorFile')
-
-    // ? Lorsque l'évenement submit et envoyer :
-    formNewBill.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      // ! TEST : Debug pour envoyer que les fichier avec l'extension .png, .jpeg ou .jpg à l'envoie du formulaire :
-      //? Si le fichier sélectionné a une extension .png, .jpeg ou .jpg en envoir le format :
-      if (/\.(png|jpe?g)$/i.test(file.value)) {
-        this.handleSubmit(e);
-      //? Si le fichier sélectionné a une extension différente de .png, .jpeg ou .jpg en affiche le message d'erreur :
-      } else {
-        errorFile.style.display = "block";
-      }
-    });
-
     file.addEventListener("change", this.handleChangeFile)
     this.fileUrl = null
     this.fileName = null
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
-  
-  
+
   handleChangeFile = e => {
     e.preventDefault()
-    // ? Ajouts d'un sélecteur pour afficher le message d'erreur :
-    const errorFile = document.querySelector('#errorFile')
-    const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    const filePath = e.target.value.split(/\\/g)
-    const fileName = filePath[filePath.length-1]
+    const input = this.document.querySelector(`input[data-testid="file"]`)
+    const file = input.files[0]
+    
+    // ! TEST : Debug pour envoyer que les fichier avec l'extension .png, .jpeg ou .jpg à l'envoie du formulaire :
+    //? Tableau des types MIME de fichiers autorisés
+    const fileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 
-    // ! TEST : Debug pour uploade que les fichier avec l'extension .png, .jpeg ou .jpg :
-     //? Si le fichier sélectionné a une extension .png, .jpeg ou .jpg en masque le message d'erreur :
-      if (/\.(png|jpe?g)$/i.test(fileName)) {
-      errorFile.style.display = "none";
-    //? Si le fichier sélectionné a une extension différente de .png, .jpeg ou .jpg en affiche le message d'erreur :
-    } else {
-      errorFile.style.display = "block";
-      return false;
+    //? Vérifie si le type de fichier sélectionné n'est pas inclus dans les types autorisés
+    if (!fileTypes.includes(file.type)) {
+      //? Si le type de fichier n'est pas autorisé, vide la valeur du champ de saisie
+      input.value = "";
+      //? Renvoie -1 pour indiquer un échec dans le traitement
+      return -1;
     }
 
-
-    const formData = new FormData()
+    const filePath = e.target.value.split(/\\/g)
+    const fileName = filePath[filePath.length-1]
+    const formData = new FormData() 
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
     formData.append('email', email)
@@ -66,6 +49,7 @@ export default class NewBill {
         }
       })
       .then(({fileUrl, key}) => {
+        console.log(fileUrl)
         this.billId = key
         this.fileUrl = fileUrl
         this.fileName = fileName
