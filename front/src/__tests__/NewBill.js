@@ -101,8 +101,8 @@ describe("Given I am connected as an employee", () => {
         //? Déclenche l'événement de changement sur l'élément d'entrée de fichier
         fileInput.dispatchEvent(event);
 
-        //? S'attend à ce que la méthode handleChangeFile renvoie -1 (fichier non valide)
-        expect(newbills.handleChangeFile(event)).toBe(-1);
+        //? S'attend à ce que la méthode handleChangeFile renvoie false (fichier non valide)
+        expect(newbills.handleChangeFile(event)).toBe(false);
       });
     })
 

@@ -29,8 +29,8 @@ export default class NewBill {
     if (!fileTypes.includes(file.type)) {
       //? Si le type de fichier n'est pas autorisé, vide la valeur du champ de saisie
       input.value = "";
-      //? Renvoie -1 pour indiquer un échec dans le traitement
-      return -1;
+      //? Renvoie false pour indiquer un échec dans le traitement
+      return false;
     }
 
     const filePath = e.target.value.split(/\\/g)
