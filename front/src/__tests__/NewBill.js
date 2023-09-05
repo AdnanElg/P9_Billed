@@ -59,7 +59,7 @@ describe("Given I am connected as an employee", () => {
       // *** TEST FONCTIONNELS && TEST UNITAIRES ***
       // ***************************************************************************
       
-      //? Test : Le fichier a l'extension png, jpeg ou jpg
+      //! Test : Le fichier a l'extension png, jpeg ou jpg
       test("Then the file is of extension png or jpeg or jpg", () => {
         //? Obtient l'élément d'entrée de fichier en utilisant un attribut de test
         const fileInput = screen.getByTestId('file');
@@ -82,7 +82,7 @@ describe("Given I am connected as an employee", () => {
         expect(newbills.handleChangeFile(event)).toBe(undefined);
       });
 
-      //? Test : Le fichier n'accepte pas d'extension autre que png, jpeg ou jpg
+      //! Test : Le fichier n'accepte pas d'extension autre que png, jpeg ou jpg
       test("Then the file don't accept other extension than png or jpeg or jpg", () => {
         //? Obtient l'élément d'entrée de fichier en utilisant un attribut de test
         const fileInput = screen.getByTestId('file');
