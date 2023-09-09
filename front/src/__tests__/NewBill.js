@@ -110,7 +110,7 @@ describe("Given I am connected as an employee", () => {
       // *** TEST INTÉGRATION ***
       // ***************************************************************************
 
-      // ! Test d'intégration -> POST Ajouter Erreur 500
+      // ! Test d'intégration -> POST Ajouter Erreur 500 et 404
       test("POST bill", async () => {
         //? Crée un élément div "root" et l'ajoute au corps du document
         const root = document.createElement("div");
@@ -174,6 +174,7 @@ describe("Given I am connected as an employee", () => {
                 console.error(error);
             }
         });
+        //? Test : L'envoi de la facture échoue avec un message d'erreur 404
         test("POST bill fails with 404 message error", async () => {
           try {
               //? Espionne la méthode "bills" du magasin fictif

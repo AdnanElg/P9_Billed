@@ -22,7 +22,7 @@ const row = (bill) => {
     `)
   }
 
-  //? Mise a jour des dates de facons croissante du plus grans aux plus petits
+  //! Mise a jour des dates de facons croissante du plus grans aux plus petits
   //? La fonction `rows` prend un tableau `data` en entrée.
   const rows = (data) => {
     //? Vérifie si `data` existe et a une longueur non nulle avant de procéder.
