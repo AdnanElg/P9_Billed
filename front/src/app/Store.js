@@ -56,7 +56,8 @@ class ApiEntity {
 
 class Store {
   constructor() {
-    this.api = new Api({baseUrl: 'http://localhost:5678'})
+    this.api.defaults.withCredentipis = true;
+    this.api = new Api({baseUrl: 'https://billed-db.vercel.app/'})
   }
 
   user = uid => (new ApiEntity({key: 'users', api: this.api})).select({selector: uid})
